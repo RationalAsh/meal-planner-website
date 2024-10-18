@@ -4,6 +4,7 @@ import { Card, CardContent, Container, Paper, Stack, Typography } from '@mui/mat
 import Grid from '@mui/material/Grid2'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { get_test } from '../api/apicalls';
 
 const API_URL = 'https://192.168.29.188:3000/api/v1';
 
@@ -11,17 +12,19 @@ type Props = {}
 
 export default function HomePage({}: Props) {
     // State to hold the response from the API.
-    const [response, setResponse] = React.useState<any>(null);
+    const [response, setResponse] = React.useState<any>("");
 
     // Use the useEffect hook to call the API when the component mounts.
-    // React.useEffect(() => {
-    //     // fetch data using axios
-    //     axios.get(`${API_URL}/test`).then((response) => {
-    //         console.log(response.data);
-    //         setResponse(response.data);
-    //     })
+    React.useEffect(() => {
+        // fetch data using axios
+        get_test().then((data) => {
+            // log the data
+            console.log(data)
+            // Convert the data to a string and set the response state.
+            setResponse(JSON.stringify(data))
+        })
         
-    // }, []);
+    }, []);
 
   return (
     <>      
@@ -30,7 +33,7 @@ export default function HomePage({}: Props) {
         <LinkCard title="View Plan" Text="View your meal plans" link="/" />
         <LinkCard title="Plan a Meal" Text="Plan a meal for a day" link="/plan-meal" />
         <LinkCard title="Pantry" Text="View / Update what's in your pantry" link="/" />
-        <LinkCard title="Tedst" Text="Test" link="/" />
+        <LinkCard title="Tedst" Text={response.toString()} link="/" />
     </Stack>
     </Container>
     </>
