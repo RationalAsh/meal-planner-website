@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import PlanMeal from './components/PlanMeal';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/plan-meal" element={<PlanMeal />} />
       </Routes>
