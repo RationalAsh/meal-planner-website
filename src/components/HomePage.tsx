@@ -2,9 +2,6 @@ import React from 'react'
 import ResponsiveAppBar from './ResponsiveAppBar'
 import { Card, CardContent, Container, Paper, Stack, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid2'
-import axios from 'axios';
-
-const API_URL = 'https://192.168.29.188:3000/api/v1';
 
 type Props = {}
 
