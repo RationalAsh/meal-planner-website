@@ -4,9 +4,6 @@ import { Card, CardContent, Container, Paper, Stack, Typography } from '@mui/mat
 import Grid from '@mui/material/Grid2'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { get_test } from '../api/apicalls';
-
-const API_URL = 'https://192.168.29.188:3000/api/v1';
 
 type Props = {}
 
@@ -17,12 +14,12 @@ export default function HomePage({}: Props) {
     // Use the useEffect hook to call the API when the component mounts.
     React.useEffect(() => {
         // fetch data using axios
-        get_test().then((data) => {
-            // log the data
-            console.log(data)
-            // Convert the data to a string and set the response state.
-            setResponse(JSON.stringify(data))
-        })
+        // get_test().then((data) => {
+        //     // log the data
+        //     console.log(data)
+        //     // Convert the data to a string and set the response state.
+        //     setResponse(JSON.stringify(data))
+        // })
         
     }, []);
 
