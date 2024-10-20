@@ -66,6 +66,7 @@ export default function Signup() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <Button variant="contained" type="submit" fullWidth>Sign Up</Button>
+                    <Typography variant="body2" align="center">Already have an account? <a href="/login">Login</a></Typography>
                 </Stack>
             </Paper>
             <Backdrop
