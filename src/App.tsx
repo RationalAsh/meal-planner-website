@@ -38,7 +38,14 @@ function App() {
   return (
     <>
     <Container maxWidth="xl">
-        <Signup />
+        {/* <Signup /> */}
+        <Router>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+            </Routes>
+        </Router>
     </Container>
     {/* <ResponsiveAppBar />
     <Router>
