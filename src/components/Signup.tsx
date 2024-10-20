@@ -1,70 +1,69 @@
-import React from 'react'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
+import React from 'react';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { Box, Button, Stack, TextField, Typography, Paper } from '@mui/material';
 import { useSnackbar } from 'notistack';
+// import { useNavigate } from 'react-router-dom';
 
-type Props = {}
-
-export default function Signup({}: Props) {
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+export default function Signup() {
+    const { enqueueSnackbar } = useSnackbar();
     const auth = getAuth();
+    // const navigate = useNavigate();
 
-    // State to hold email
+    // State to hold email and password
     const [email, setEmail] = React.useState("");
-    // State to hold password
     const [password, setPassword] = React.useState("");
 
     // Function to handle the form submission
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log("Email: ", email);
-        console.log("Password: ", password);
-
+        
         // Sign up with username and password with firebase auth.
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
                 const user = userCredential.user;
-                console.log("User: ", user);
                 enqueueSnackbar("User created successfully", { variant: 'success' });
+                // navigate('/');
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log("Error Code: ", errorCode);
-                console.log("Error Message: ", errorMessage);
-                enqueueSnackbar(errorMessage, { variant: 'error'});
+                enqueueSnackbar(error.message, { variant: 'error' });
             });
-    }
+    };
 
-  return (
-    <Stack spacing={3} component="form" sx={{mt: 3}}>
-        <Typography variant="h4" sx={{display:'flex', justifyContent: 'center'}}>Sign Up</Typography>
-        <Box sx={{display: 'flex', justifyContent: 'center'}}>
-            <Typography variant="h6" sx={{margin: 2}}>Email</Typography>
-            <TextField
-            id="outlined-email-input"
-            label="Email"
-            type="email"
-            autoComplete="current-email"
-            onChange={(e) => setEmail(e.target.value)}
-            />
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '100vh',
+                backgroundColor: '#f5f5f5',
+                padding: 2,
+            }}
+        >
+            <Paper elevation={6} sx={{ padding: 4, maxWidth: 400, width: '100%' }}>
+                <Stack spacing={3} component="form" onSubmit={handleSubmit}>
+                    <Typography variant="h4" align="center">Sign Up</Typography>
+                    <TextField
+                        id="outlined-email-input"
+                        label="Email"
+                        type="email"
+                        fullWidth
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                        id="outlined-password-input"
+                        label="Password"
+                        type="password"
+                        fullWidth
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button variant="contained" type="submit" fullWidth>Sign Up</Button>
+                </Stack>
+            </Paper>
         </Box>
-        <Box sx={{display: 'flex', justifyContent: 'center'}}>
-            
-            <Typography variant="h6" sx={{margin: 2}}>Password</Typography>
-
-            <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-            />
-        </Box>
-        <Box sx={{display: 'flex', justifyContent: 'center'}}>
-            <Button variant="contained" onClick={handleSubmit}>Sign Up</Button>
-        </Box>
-    </Stack>
-  )
+    );
 }
